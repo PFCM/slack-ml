@@ -1,0 +1,9 @@
+application: slack-ml
+version: pre-alpha-01
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /msg/new
+  script: msg.app
