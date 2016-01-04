@@ -10,6 +10,7 @@ def new_msg():
     """Stores new messages"""
     # check it's legit
     if flask.request.data['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz':
+        # send it straight back
         msg = flask.request.data['text']
         logging.info('Received message: %s', msg)
         return {'text':msg}
