@@ -12,6 +12,7 @@ deploy:
   provider: gae
   skip_cleanup: true
   keyfile: client-secret.json
+  project: slack-ml
 notifications:
   email:
     on_success: change
