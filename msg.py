@@ -1,4 +1,5 @@
 import logging
+import json
 
 from flask import Flask
 import flask
@@ -13,5 +14,5 @@ def new_msg():
         # send it straight back
         msg = flask.request.form['text']
         logging.info('Received message: %s', msg)
-        return {'text':msg}
+        return json.dumps({'text':msg})
     return 'nope', 401
