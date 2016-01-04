@@ -6,18 +6,16 @@ import flask
 
 app = Flask(__name__)
 
-lastmsg = ""
+USERNAME = "ml" # username of bot on slack
 
 @app.route('/msg/new', methods=['POST'])
 def new_msg():
     """Stores new messages"""
     # check it's legit
-    if flask.request.form['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz':
+    if flask.request.form['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz' \
+        and flask.request.form['user_name'] != USERNAME: # avoid feedback
         # send it straight back
         msg = flask.request.form['text']
-        if msg != lastmsg:
-            logging.info('Received message: %s', msg)
-            # lol avoid feedback loop
-            lastmsg = msg
-            return json.dumps({'text':msg})
+        logging.info('Received message: %s', msg)
+        return json.dumps({'text':msg})
     return 'nope', 401
