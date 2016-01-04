@@ -1,4 +1,3 @@
-application: slack-ml
 version: pre-alpha-01
 runtime: python27
 api_version: 1
