@@ -18,9 +18,8 @@ def new_msg():
         # send it straight back
         msg = flask.request.form['text']
         logging.info('Received message: "%s" from %s', msg, flask.request.form['user_name'])
-        global once
         if once == 0:
             once = 1 # this may happen a cupl eof times because threaded but shouldn't explode
-            return "hi"
+            return json.dumps({'text':msg})
         return ""#json.dumps({'text':msg})
     return 'nope', 401
