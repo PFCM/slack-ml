@@ -9,9 +9,9 @@ app = Flask(__name__)
 def new_msg():
     """Stores new messages"""
     # check it's legit
-    if flask.request.data['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz':
+    if flask.request.form['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz':
         # send it straight back
-        msg = flask.request.data['text']
+        msg = flask.request.form['text']
         logging.info('Received message: %s', msg)
         return {'text':msg}
     return 'nope', 401
