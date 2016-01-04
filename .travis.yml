@@ -1,0 +1,19 @@
+sudo: false
+language: python
+before_install:
+- openssl aes-256-cbc -K $encrypted_26234e418fcc_key -iv $encrypted_26234e418fcc_iv
+  -in client-secret.json.enc -out client-secret.json -d
+- mkdir lib
+install:
+- pip install -r requirements.txt -t lib/
+script:
+- echo "no tests"
+deploy:
+  provider: gae
+  skip_cleanup: true
+  keyfile: client-secret.json
+notifications:
+  email:
+    on_success: change
+  slack:
+    secure: LwA3AvWAU867QBweN8JyvEoFHQFJTksVq96RZRTSTRXAELxK8WRSvOQbAGyMhuaetOVoJYeB7hniiSAMGMm7OJzW5HMBr5W+GxIg8FgJFBR7lyfP+/EORv+d02SG9dZRI8cNWGkgS0gn2KkgqEChbJJyskMvbH5Zo/rhBnxZ1FVts2F/sOFcMb0B1pfm74jBWX+kxX2nvfheOwaGkGXBCePNdpVIAa0qYe+rMhIsKm0be0Tp6jAqIzMLNKvvsHPOWVKYdLbLrCnY2HGNbzPMYK6BPY3P3cgPln9l6XwWVfzJQHTVobbXVS3wbhGCCip2YCt34K503xHQQvw2z9dPQOQoDVWeLS7TyZY6HyVBIOuIelJ+uoAEnDg7ctkZ2XVTdYejeehekwc7DKDQNa/JJFWsfvj/lzWXmW4lyhfi9pBN7yoOUSEGnbTp4OpxJ3NUwyy583QM6a7R5GFRXLcYwHyOyj7RK2ly8bMJIiHNHvP9N6nzfGiVIpU1B0lyi4B1mbyxCo95/aX9SBPe2voG6qi6dm3lyyzy9e+3FpnMwC0T3lX1kVuThtpEhq4BTqabORyZc7ubUbPZH8tIFfx9upKlpVjE3/JqRgDJa1ajOZgPyiMF7WPNBl0wLQm6c0kxcsfdpDNufiG6u0Vyw3iGdkfx70fhMXT1mMHng10InYU=

@@ -9,3 +9,6 @@ lib/
 
 # pyenv
 .python-version
+
+# secrets
+client-secret.json
