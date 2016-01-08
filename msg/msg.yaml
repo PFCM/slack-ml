@@ -1,0 +1,6 @@
+module: msg
+
+
+handlers:
+- url: /new
+  script: msg.app
