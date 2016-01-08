@@ -1,7 +1,7 @@
 #! /bin/sh
-
+echo "GAE deployment starting..."
 # deploys to app engine
-if [ ! -f $HOME/google-cloud-sdk ]; then
+if [ ! -d $HOME/google-cloud-sdk ]; then
     echo "installing gcloud"
     curl https://sdk.cloud.google.com | bash;
 fi
