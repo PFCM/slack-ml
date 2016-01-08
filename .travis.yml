@@ -11,7 +11,7 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: deploy/deploy-gae.sh
+  script: deploy/deploy-gae.sh app.yaml msg/msg.yaml
 # after_script:
 #     - bash deploy/deploy-gae.sh
 notifications:
