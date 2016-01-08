@@ -24,6 +24,6 @@ $GCLOUD auth activate-service-account --key-file client-secret.json
 
 # and deploy, add extra modules here
 echo "deploying"
-$GCLOUD -q preview app deploy $@
+$GCLOUD -q preview app deploy $@ --promote
 # run end-to-end tests?
 # or probably do that in after_script
