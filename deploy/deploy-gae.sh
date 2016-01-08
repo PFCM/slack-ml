@@ -1,7 +1,7 @@
-#! /bin/bash
+#! /bin/sh
 
 # deploys to app engine
-if [ ! -f ${HOME}/google-cloud-sdk ]; then
+if [ ! -f $HOME/google-cloud-sdk ]; then
     echo "installing gcloud"
     curl https://sdk.cloud.google.com | bash;
 fi
