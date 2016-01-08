@@ -6,22 +6,24 @@ echo "GAE deployment starting..."
 BASE='https://dl.google.com/dl/cloudsdk/channels/rapid/'
 NAME='google-cloud-sdk'
 EXT='.tar.gz'
-INSTALL='~'
+INSTALL=$HOME
 BOOTSTRAP="${INSTALL}/${NAME}/bin/bootstrapping/install.py"
 GCLOUD="${INSTALL}/${NAME}/bin/gcloud"
+URL=${BASE}${NAME}${EXT}
 
 if [ ! -d $HOME/google-cloud-sdk ]; then
-    echo "downloading"
-    curl -L ${BASE}${NAME}${EXT} | gzip -d | tar -x -C $INSTALL
+    echo "downloading from $URL"
+    curl -L "$URL" | gzip -d | tar -x -C $INSTALL
 
     echo "bootstrapping"
     $BOOTSTRAP --usage-reporting=false --command-completion=false --path-update=false
 fi
 # authenticate
 echo "authenticating"
-gcloud auth activate-service-account --key-file client-secret.json
+$GCLOUD auth activate-service-account --key-file client-secret.json
 
 # and deploy, add extra modules here
 echo "deploying"
-gcloud -q preview app deploy $@
+$GCLOUD -q preview app deploy $@
 # run end-to-end tests?
+# or probably do that in after_script
