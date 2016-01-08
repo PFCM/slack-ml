@@ -22,7 +22,7 @@ def store_msg(msg):
     """
     pass
 
-@app.route('/msg/new', methods=['POST'])
+@app.route('/new', methods=['POST'])
 def new_msg():
     """Stores new messages"""
     # check it's legit
