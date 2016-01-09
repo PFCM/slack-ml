@@ -2,6 +2,8 @@
 This module handles messages.
 """
 import logging
+import json
+import random
 
 from flask import Flask
 import flask
@@ -9,6 +11,17 @@ import flask
 app = Flask(__name__)
 
 USERNAME = "ml" # actually its 'slackbot' but docs say this should work, so do both
+
+POSITIVE_RESPONSES = [
+    ':yellow_heart:',
+    ':smile_cat:',
+    'got it',
+    'thanks',
+    ':black_joker:',
+    ':pray:',
+    ':unicorn_face:',
+    ':godmode:'
+]
 
 def store_msg(msg):
     """Actually puts a message into storage. Also checks whether or not there
@@ -34,5 +47,5 @@ def new_msg():
         logging.info('Received message: "%s" from %s',
                      msg, flask.request.form['user_name'])
         # defer handling it
-        return 'ok'
+        return json.loads({'text':random.choice(POSITIVE_RESPONSES)})
     return 'nope', 401
