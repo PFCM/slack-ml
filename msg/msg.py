@@ -47,5 +47,5 @@ def new_msg():
         logging.info('Received message: "%s" from %s',
                      msg, flask.request.form['user_name'])
         # defer handling it
-        return json.loads({'text':random.choice(POSITIVE_RESPONSES)})
+        return json.dumps({'text':random.choice(POSITIVE_RESPONSES)})
     return 'nope', 401
