@@ -5,8 +5,13 @@ import logging
 import json
 import random
 
+from google.appengine.ext import deferred
+
+from .. import data
+
 from flask import Flask
 import flask
+
 
 app = Flask(__name__)
 
@@ -23,18 +28,6 @@ POSITIVE_RESPONSES = [
     ':godmode:'
 ]
 
-def store_msg(msg):
-    """Actually puts a message into storage. Also checks whether or not there
-    are enough messages to do a batch of training and if so, starts that
-    process.
-
-    Args:
-        msg (str) - the message to store
-    Returns:
-        None
-    """
-    pass
-
 @app.route('/new', methods=['POST'])
 def new_msg():
     """Stores new messages"""
@@ -46,6 +39,14 @@ def new_msg():
         msg = flask.request.form['text']
         logging.info('Received message: "%s" from %s',
                      msg, flask.request.form['user_name'])
+        # quickly process it, we want to fail here if things are missing
+        msg_data = {
+        'username': flask.request.form['user_name'],
+        'text': flask.request.form['text'],
+        'timestamp': flask.request.form['timestamp']
+        }
         # defer handling it
+        deferred.defer(data.tools.store_msg, msg_data)
+        # return some kind of confirmation
         return json.dumps({'text':random.choice(POSITIVE_RESPONSES)})
     return 'nope', 401
