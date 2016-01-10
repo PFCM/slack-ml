@@ -32,21 +32,31 @@ POSITIVE_RESPONSES = [
 def new_msg():
     """Stores new messages"""
     # check it's legit
-    if flask.request.form['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz' \
-        and flask.request.form['user_name'] != USERNAME \
-        and flask.request.form['user_name'] != 'slackbot': # avoid feedback
-        # send it straight back
-        msg = flask.request.form['text']
+    logging.info('new message. hi')
+    logging.info('data: %s', flask.request.data)
+    if flask.request.data:
+        msg_data = json.loads(flask.request.data)
+    else:
+        msg_data = flask.request.form
+    for key in msg_data:
+        logging.info('{}:{}'.format(key, msg_data[key]))
+    if msg_data['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz' \
+        and msg_data['user_name'] != USERNAME \
+        and msg_data['user_name'] != 'slackbot': # avoid feedback
+        msg = msg_data['text']
         logging.info('Received message: "%s" from %s',
-                     msg, flask.request.form['user_name'])
+                     msg, msg_data['user_name'])
         # quickly process it, we want to fail here if things are missing
         msg_data = {
-            'username': flask.request.form['user_name'],
-            'text': flask.request.form['text'],
-            'timestamp': flask.request.form['timestamp']
+            'username': msg_data['user_name'],
+            'text': msg_data['text'],
+            'timestamp': msg_data['timestamp']
         }
         # defer handling it
         deferred.defer(data.tools.store_msg, msg_data)
         # return some kind of confirmation
-        return json.dumps({'text':random.choice(POSITIVE_RESPONSES)})
-    return 'nope', 401
+        return flask.Response(
+            json.dumps({'text':random.choice(POSITIVE_RESPONSES)}),
+            mimetype='application/json'
+            )
+    return 'nope'
