@@ -15,3 +15,6 @@ client-secret.json
 
 # OS stuff
 .DS_Store
+
+# coverage results
+.coverage
