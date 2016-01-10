@@ -16,4 +16,6 @@ if [ ! -d $INSTALL/google-cloud-sdk ]; then
 
     echo "bootstrapping"
     $BOOTSTRAP --usage-reporting=false --command-completion=false --path-update=false
+    # installing app engine specific components
+    $GCLOUD components install app-engine-python -q
 fi
