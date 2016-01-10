@@ -32,14 +32,10 @@ POSITIVE_RESPONSES = [
 def new_msg():
     """Stores new messages"""
     # check it's legit
-    logging.info('new message. hi')
-    logging.info('data: %s', flask.request.data)
     if flask.request.data:
         msg_data = json.loads(flask.request.data)
     else:
         msg_data = flask.request.form
-    for key in msg_data:
-        logging.info('{}:{}'.format(key, msg_data[key]))
     if msg_data['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz' \
         and msg_data['user_name'] != USERNAME \
         and msg_data['user_name'] != 'slackbot': # avoid feedback
