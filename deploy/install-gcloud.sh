@@ -1,5 +1,7 @@
 #! /bin/sh
-echo "GAE deployment starting..."
+
+# installing gcloud
+
 BASE='https://dl.google.com/dl/cloudsdk/channels/rapid/'
 NAME='google-cloud-sdk'
 EXT='.tar.gz'
@@ -15,12 +17,3 @@ if [ ! -d $HOME/google-cloud-sdk ]; then
     echo "bootstrapping"
     $BOOTSTRAP --usage-reporting=false --command-completion=false --path-update=false
 fi
-# authenticate
-echo "authenticating"
-$GCLOUD auth activate-service-account --key-file client-secret.json
-
-# and deploy, add extra modules here
-echo "deploying"
-$GCLOUD -q preview app deploy $@ --promote
-# run end-to-end tests?
-# or probably do that in after_script
