@@ -5,6 +5,7 @@ before_install:
   -in client-secret.json.enc -out client-secret.json -d
 - mkdir lib
 - deploy/install-gcloud.sh
+- export $PYTHONPATH=$PYTHONPATH":~/google-cloud-sdk/bin"
 install:
 - pip install -r requirements.txt -t lib/
 - pip install -r test-requirements.txt

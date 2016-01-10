@@ -10,7 +10,7 @@ BOOTSTRAP="${INSTALL}/${NAME}/bin/bootstrapping/install.py"
 GCLOUD="${INSTALL}/${NAME}/bin/gcloud"
 URL=${BASE}${NAME}${EXT}
 
-if [ ! -d $HOME/google-cloud-sdk ]; then
+if [ ! -d $INSTALL/google-cloud-sdk ]; then
     echo "downloading from $URL"
     curl -L "$URL" | gzip -d | tar -x -C $INSTALL
 

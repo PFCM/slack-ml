@@ -2,8 +2,6 @@
 from contextlib import contextmanager
 import time
 
-from nose import with_setup
-
 import tools
 import models
 
