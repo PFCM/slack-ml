@@ -6,7 +6,7 @@ before_install:
 - mkdir lib
 install:
 - pip install -r requirements.txt -t lib/
-- pip install coveralls
+- pip install -r test-requirements.txt
 script:
 - nosetests --with_coverage
 deploy:

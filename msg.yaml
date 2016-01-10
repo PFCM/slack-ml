@@ -8,8 +8,8 @@ builtins:
 
 handlers:
 - url: /new
-  script: msg.app
+  script: msg.msg.app
 
 - url: /_ah/queue/deferred
-    script: google.appengine.ext.deferred.deferred.application
-    login: admin
+  script: google.appengine.ext.deferred.deferred.application
+  login: admin

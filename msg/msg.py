@@ -7,7 +7,7 @@ import random
 
 from google.appengine.ext import deferred
 
-from .. import data
+import data.models
 
 from flask import Flask
 import flask

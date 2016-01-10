@@ -2,5 +2,3 @@
 #
 # run 'pip install -r requirements.txt -t lib/' to install
 Flask==0.10
-nosegae
-nose-exclude
