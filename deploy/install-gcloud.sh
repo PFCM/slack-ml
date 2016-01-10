@@ -15,7 +15,8 @@ if [ ! -d $INSTALL/google-cloud-sdk ]; then
     curl -L "$URL" | gzip -d | tar -x -C $INSTALL
 
     echo "bootstrapping"
-    $BOOTSTRAP --rc-path=~/.bashrc --usage-reporting=false --command-completion=false --path-update=true
+    $BOOTSTRAP --usage-reporting=false --command-completion=false --path-update=false
     # installing app engine specific components
     $GCLOUD components install app-engine-python -q
 fi
+export PYTHONPATH=$INSTALL/$NAME/platform/google_appengine/:$PYTHONPATH
