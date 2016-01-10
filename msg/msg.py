@@ -41,9 +41,9 @@ def new_msg():
                      msg, flask.request.form['user_name'])
         # quickly process it, we want to fail here if things are missing
         msg_data = {
-        'username': flask.request.form['user_name'],
-        'text': flask.request.form['text'],
-        'timestamp': flask.request.form['timestamp']
+            'username': flask.request.form['user_name'],
+            'text': flask.request.form['text'],
+            'timestamp': flask.request.form['timestamp']
         }
         # defer handling it
         deferred.defer(data.tools.store_msg, msg_data)
