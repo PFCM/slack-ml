@@ -12,3 +12,6 @@ lib/
 
 # secrets
 client-secret.json
+
+# OS stuff
+.DS_Store
