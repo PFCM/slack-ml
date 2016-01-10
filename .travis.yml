@@ -4,7 +4,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_26234e418fcc_key -iv $encrypted_26234e418fcc_iv
   -in client-secret.json.enc -out client-secret.json -d
 - mkdir lib
-- deploy/install-gcloud.sh
+- source deploy/install-gcloud.sh
 install:
 - pip install -r requirements.txt -t lib/
 - pip install -r test-requirements.txt
