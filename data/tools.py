@@ -15,4 +15,6 @@ def store_msg(msg):
     """
     msg['timestamp'] = datetime.datetime.fromtimestamp(float(msg['timestamp']))
     msg_model = models.Message(**msg)
-    return msg_model.put()
+    key =  msg_model.put()
+    # how many are there?
+    return key

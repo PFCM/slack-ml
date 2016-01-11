@@ -1,0 +1,9 @@
+module: data
+runtime: python27
+api_version: 1
+threadsafe: false
+
+handlers:
+- url: /_maintain
+  script: data.maintenance.app
+  login: admin
