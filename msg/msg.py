@@ -48,7 +48,7 @@ def new_msg():
         msg_data = json.loads(flask.request.data)
     else:
         msg_data = flask.request.form
-    if msg_data['token'] == get_conf(outbound_token) \
+    if msg_data['token'] == get_conf('outbound_token') \
         and msg_data['user_name'] != USERNAME \
         and msg_data['user_name'] != 'slackbot': # avoid feedback
         msg = msg_data['text']
