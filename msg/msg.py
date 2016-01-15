@@ -69,10 +69,32 @@ def new_msg():
             )
     return 'nope'
 
-@app.route('/post')
+def format_slackmsg(text):
+    return text.replace('\n', '\\n')
+
+@app.route('/post', methods=['POST'])
 def post_msg():
     """Posts a message to the webhook in the secret file"""
     webhook_url = get_conf('incoming_webhook')
     # get the message content from the request
     text = flask.request.args['text']
+    secret = flask.request.args['secret']
+    if secret != get_conf('post_secret'):
+        return 401
+    logging.info('posting: %s', text)
+    # make sure the text is appropriately escaped
+    body = {
+        'text':format_slackmsg(text)
+    }
     # use urlfetch to POST it to the webhook
+    result = urlfetch.fetch(url=webhook_url,
+                            payload=json.dumps(body),
+                            method=urlfetch.POST,
+                            headers={'Content-Type': 'application/json'})
+    logging.info('attempted...')
+    if result.status_code != 200:
+        logging.error('possible issue: %d, %s', result.status_code,
+                      result.content)
+    else:
+        logging.info('...succesfully')
+    return '<p>{}, {}<p>'.format(result.status_code, result.content)

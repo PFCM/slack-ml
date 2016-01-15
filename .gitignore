@@ -13,7 +13,7 @@ lib/
 # secrets
 client-secret.json
 secrets.yaml
-secrets.tar
+secrets.tar.gz
 
 # OS stuff
 .DS_Store

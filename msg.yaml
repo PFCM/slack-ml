@@ -9,6 +9,8 @@ builtins:
 handlers:
 - url: /new
   script: msg.msg.app
+- url: /post
+  script: msg.msg.app
 
 - url: /_ah/queue/deferred
   script: google.appengine.ext.deferred.deferred.application
