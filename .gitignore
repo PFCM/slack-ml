@@ -12,6 +12,8 @@ lib/
 
 # secrets
 client-secret.json
+secrets.yaml
+secrets.tar
 
 # OS stuff
 .DS_Store

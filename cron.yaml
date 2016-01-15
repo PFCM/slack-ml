@@ -1,0 +1,6 @@
+cron:
+- description: nightly db maintenance
+  url: /_maintenance
+  schedule: every day 00:00
+  timezone: Pacific/Auckland
+  target: data

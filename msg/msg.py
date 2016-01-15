@@ -5,7 +5,10 @@ import logging
 import json
 import random
 
+import yaml
+
 from google.appengine.ext import deferred
+from google.appengine.api import urlfetch # we've locked in the data so why not
 
 import data.models
 import data.tools
@@ -29,6 +32,14 @@ POSITIVE_RESPONSES = [
     ':godmode:'
 ]
 
+def get_conf(name):
+    """Gets a value out of the secret config file secrets.yaml"""
+    # we are just going to read it every time. This is probably unwise
+    with open('secrets.yaml') as buf:
+        conf = yaml.load(buf)
+        return conf[name]
+
+
 @app.route('/new', methods=['POST'])
 def new_msg():
     """Stores new messages"""
@@ -37,7 +48,7 @@ def new_msg():
         msg_data = json.loads(flask.request.data)
     else:
         msg_data = flask.request.form
-    if msg_data['token'] == 'BxXxBTiFbTQI3g9fqtowbMOz' \
+    if msg_data['token'] == get_conf(outbound_token) \
         and msg_data['user_name'] != USERNAME \
         and msg_data['user_name'] != 'slackbot': # avoid feedback
         msg = msg_data['text']
@@ -57,3 +68,11 @@ def new_msg():
             mimetype='application/json'
             )
     return 'nope'
+
+@app.route('/post')
+def post_msg():
+    """Posts a message to the webhook in the secret file"""
+    webhook_url = get_conf('incoming_webhook')
+    # get the message content from the request
+    text = flask.request.args['text']
+    # use urlfetch to POST it to the webhook
