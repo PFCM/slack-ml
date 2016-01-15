@@ -77,10 +77,11 @@ def post_msg():
     """Posts a message to the webhook in the secret file"""
     webhook_url = get_conf('incoming_webhook')
     # get the message content from the request
-    text = flask.request.args['text']
-    secret = flask.request.args['secret']
+    msg_data = json.loads(flask.request.data)
+    text = msg_data['text']
+    secret = msg_data.get('secret', '')
     if secret != get_conf('post_secret'):
-        return 401
+        return 'not allowed', 401
     logging.info('posting: %s', text)
     # make sure the text is appropriately escaped
     body = {
@@ -97,4 +98,4 @@ def post_msg():
                       result.content)
     else:
         logging.info('...succesfully')
-    return '<p>{}, {}<p>'.format(result.status_code, result.content)
+    return '<p>{}, {}</p>'.format(result.status_code, result.content)
